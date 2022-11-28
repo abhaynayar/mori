@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Life</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="shortcut icon" href="img/life.png">
+<link rel="apple-touch-icon" href="img/life.png">
+
+<style>
+.has-gap {
+  margin-bottom: 4px;
+}
+
+.week {
+  width: 4px;
+  height: 5px;
+  display: inline-block;
+  border: 1px solid #999;
+}
+
+.week.filled {
+  background-color: #444;
+  border: 1px solid #000;
+}
+
+.row {
+  font-size: 0px;
+  text-align: center;
+}
+
+.label {
+  color: #2a2a2a;
+  position: absolute;
+  font-size: 10px;
+  text-align: left;
+  margin-left: 5px;
+}
+
+h1 {
+  color: #2a2a2a;
+  font-size: 16px;
+  text-align: center;
+  font-weight: normal;
+  letter-spacing: 0.4em;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="calendar" style="width:316px; margin:auto">
+  <h1>Life</h1>
+</div>
+
+
+<script>
+function weeksBetween(d1, d2) {
+    return Math.round((d2 - d1) / (7 * 24 * 60 * 60 * 1000));
+}
+
+weeksDelta = weeksBetween(new Date("2000-01-01"), new Date());
+weeksFullRow = Math.floor((weeksDelta / 52));
+weeksModulo = weeksDelta % 52;
+
+for (i=0; i<weeksFullRow; ++i) {
+  week_row = document.createElement("div");
+  week_row.className = "week-row";
+  document.getElementById("calendar").appendChild(week_row);
+
+  di = document.createElement("div");
+
+  if ((i+1)%10 == 0) {
+    di.className = "row has-gap";
+  } else {
+    di.className = "row";
+  }
+
+  week_row.appendChild(di);
+
+  for (j=0; j<52; ++j) {
+    dj = document.createElement("div");
+    dj.className = "week filled";
+    rows = document.getElementsByClassName("row");
+    rows[i].appendChild(dj);
+  }
+
+  label = document.createElement("label");
+  label.className = "label";
+  if (i%5 == 0 && i!=0) {
+    label.innerHTML = i;
+  }
+  rows[i].appendChild(label);
+}
+
+di = document.createElement("div");
+di.className = "row";
+document.getElementById("calendar").appendChild(di);
+
+for (k=0; k<weeksModulo; ++k) {
+  dj = document.createElement("div");
+  dj.className = "week filled";
+  rows = document.getElementsByClassName("row");
+  rows[i].appendChild(dj);
+}
+
+for (k=0; k<52-weeksModulo; ++k) {
+  dj = document.createElement("div");
+  dj.className = "week";
+  rows = document.getElementsByClassName("row");
+  rows[i].appendChild(dj);
+}
+
+for (l=weeksFullRow+1; l<80; ++l) {
+  dl = document.createElement("div");
+
+  if ((l+1)%10 == 0) {
+    dl.className = "row has-gap";
+  } else {
+    dl.className = "row";
+  }
+
+  document.getElementById("calendar").appendChild(dl);
+
+  for (m=0; m<52; ++m) {
+    dm = document.createElement("div");
+    dm.className = "week";
+    rows = document.getElementsByClassName("row");
+    rows[l].appendChild(dm);
+  }
+
+  label = document.createElement("label");
+  label.className = "label";
+  if (l%5 == 0) {
+    label.innerHTML = l;
+  }
+  rows[l].appendChild(label);
+}
+
+</script>
+</body>
+</html>
